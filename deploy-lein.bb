@@ -43,12 +43,12 @@
     (run-shell-cmd "gpg" "--import-ownertrust" :in (decode-base64 ownertrust))))
 
 (defn deploy! []
-  (let [tag (tag-name)]
+  (let [tag (not-empty (tag-name))]
     (when-not (can-deploy?)
       (throw (ex-info "Can't deploy this version - release version already exist on clojars"
                       {:version (get-version!)})))
 
-    (when (some-> tag not-empty (str/replace-first #"v" "") (not= (get-version!)))
+    (when (some-> tag (str/replace-first #"v" "") (not= (get-version!)))
       (throw (ex-info "Tag version mismatches with project.clj"
                       {:tag-name tag
                        :version (get-version!)})))
