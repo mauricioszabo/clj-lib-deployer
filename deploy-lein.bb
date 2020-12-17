@@ -48,7 +48,7 @@
       (throw (ex-info "Can't deploy this version - release version already exist on clojars"
                       {:version (get-version!)})))
 
-    (when (some-> tag (str/replace-first #"v" "") (not= (get-version!)))
+    (when (some-> tag not-empty (str/replace-first #"v" "") (not= (get-version!)))
       (throw (ex-info "Tag version mismatches with project.clj"
                       {:tag-name tag
                        :version (get-version!)})))
