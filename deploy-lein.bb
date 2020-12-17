@@ -19,7 +19,7 @@
                                   {:throw false}))]
     (= 404 status)))
 
-(defn- tag-name [] (System/getenv "CIRCLE_TAG"))
+(defn- tag-name [] (System/getenv "TAG"))
 
 (defn- decode-base64 [string]
   (-> java.util.Base64
